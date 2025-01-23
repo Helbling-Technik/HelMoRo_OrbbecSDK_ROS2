@@ -54,6 +54,15 @@ sensor_msgs::msg::CameraInfo convertToCameraInfo(OBCameraIntrinsic intrinsic,
   info.p[5] = info.k[4];
   info.p[6] = info.k[5];
   info.p[10] = 1.0;
+
+
+  // TODO: (Anyone) Astra Pro isn't supported anymore and has reached EOL.
+  // By Default this causes issues in this function, because the intrinsics aren't correctly read and fill the above variables with .nan
+  // This causes problems later on when using the camera_info ros msg, thus I'm setting all values to zero
+  //info.d.fill(0.0);
+  info.k.fill(0.0);
+  info.r.fill(0.0);
+  info.p.fill(0.0);
   return info;
 }
 
